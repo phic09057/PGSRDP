@@ -86,7 +86,7 @@ jobs:
           }
           echo "TAILSCALE_IP=$tsIP" >> $env:GITHUB_ENV
       
-      - name: Verify POKEMON GO SERVERS Accessibility
+      - name: Verify PC Accessibility
         run: |
           Write-Host "Tailscale IP: $env:TAILSCALE_IP"
           
