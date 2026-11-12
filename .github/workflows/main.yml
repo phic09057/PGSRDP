@@ -11,7 +11,7 @@ jobs:
     steps:
       - name: 正在准备电脑
         run: |
-          # Enable Remote Desktop and disable Network Level Authentication (if needed)
+          # 启用远程桌面并禁用网络级身份验证 Authentication (if needed)
           Set-ItemProperty -Path 'HKLM:\System\CurrentControlSet\Control\Terminal Server' `
                              -Name "fDenyTSConnections" -Value 0 -Force
           Set-ItemProperty -Path 'HKLM:\System\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp' `
@@ -19,14 +19,14 @@ jobs:
           Set-ItemProperty -Path 'HKLM:\System\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp' `
                              -Name "SecurityLayer" -Value 0 -Force
 
-          # Remove any existing rule with the same name to avoid duplication
+          # 移除同名的现有规则，以避免重复
           netsh advfirewall firewall delete rule name="RDP-Tailscale"
           
-          # For testing, allow any incoming connection on port 3389
+          # 出于测试目的，允许 3389 端口上的任何入站连接
           netsh advfirewall firewall add rule name="RDP-Tailscale" `
             dir=in action=allow protocol=TCP localport=3389
 
-          # (Optional) Restart the Remote Desktop service to ensure changes take effect
+          # （可选）重启远程桌面服务，以确保更改生效
           Restart-Service -Name TermService -Force
 
       - name: 行政人员
