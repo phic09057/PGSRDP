@@ -37,7 +37,7 @@ jobs:
               Lower   = [char[]](97..122)     # a-z
               Number  = [char[]](48..57)      # 0-9
               Special = ([char[]](33..47) + [char[]](58..64) +
-                         [char[]](91..96) + [char[]](123..126)) # Special characters
+                         [char[]](91..96) + [char[]](123..126)) # 特殊字符
           }
           $rawPassword = @()
           $rawPassword += $charSet.Upper | Get-Random -Count 1
@@ -68,10 +68,10 @@ jobs:
 
       - name: 建立 Tailscale 连接
         run: |
-          # Bring up Tailscale with the provided auth key and set a unique hostname
+          # 使用提供的身份验证密钥启动 Tailscale，并设置一个唯一的主机名
           & "$env:ProgramFiles\Tailscale\tailscale.exe" up --authkey=${{ secrets.TAILSCALE_AUTH_KEY }} --hostname=gh-runner-$env:GITHUB_RUN_ID
           
-          # Wait for Tailscale to assign an IP
+          # 等待 Tailscale 分配 IP
           $tsIP = $null
           $retries = 0
           while (-not $tsIP -and $retries -lt 10) {
@@ -90,7 +90,7 @@ jobs:
         run: |
           Write-Host "Tailscale IP: $env:TAILSCALE_IP"
           
-          # Test connectivity using Test-NetConnection against the Tailscale IP on port 3389
+          # 使用 Test-NetConnection 测试与 Tailscale IP 在 3389 端口上的连通性
           $testResult = Test-NetConnection -ComputerName $env:TAILSCALE_IP -Port 3389
           if (-not $testResult.TcpTestSucceeded) {
               Write-Error "到 RDP 端口 3389 的 TCP 连接失败"
