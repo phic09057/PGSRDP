@@ -93,10 +93,10 @@ jobs:
           # Test connectivity using Test-NetConnection against the Tailscale IP on port 3389
           $testResult = Test-NetConnection -ComputerName $env:TAILSCALE_IP -Port 3389
           if (-not $testResult.TcpTestSucceeded) {
-              Write-Error "TCP connection to RDP port 3389 failed"
+              Write-Error "到 RDP 端口 3389 的 TCP 连接失败"
               exit 1
           }
-          Write-Host "TCP connectivity successful!"
+          Write-Host "TCP 连接成功！"
 
       - name: 保持与电脑的连接
         run: |
@@ -107,6 +107,6 @@ jobs:
           
           # Keep runner active indefinitely (or until manually cancelled)
           while ($true) {
-              Write-Host "[$(Get-Date)] PC Active - Use Ctrl+C in workflow to terminate"
+              Write-Host "[$(Get-Date)] PC 已激活 - 在工作流程中使用 Ctrl+C 终止"
               Start-Sleep -Seconds 300
           }
