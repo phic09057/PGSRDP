@@ -50,10 +50,10 @@ jobs:
           Add-LocalGroupMember -Group "Administrators" -Member "Administrator"
           Add-LocalGroupMember -Group "Remote Desktop Users" -Member "Administrator"
           
-          echo "RDP_CREDS=User: Administrator | Password: $password" >> $env:GITHUB_ENV
+          echo "RDP_CREDS=用户: Administrator | 密码: $password" >> $env:GITHUB_ENV
           
           if (-not (Get-LocalUser -Name "Administrator")) {
-              Write-Error "User creation failed"
+              Write-Error "用户创建失败"
               exit 1
           }
 
@@ -100,12 +100,12 @@ jobs:
 
       - name: 保持与电脑的连接
         run: |
-          Write-Host "`n=== Your PC access information ==="
-          Write-Host "Address: $env:TAILSCALE_IP"
-          Write-Host "Sign in information: $(echo $env:RDP_CREDS)"
+          Write-Host "`n=== 您的电脑访问信息 ==="
+          Write-Host "地址： $env:TAILSCALE_IP"
+          Write-Host "登录信息： $(echo $env:RDP_CREDS)"
           Write-Host "==================`n"
           
-          # Keep runner active indefinitely (or until manually cancelled)
+          # 使运行器（runner）无限期保持活跃状态​​（或直至手动取消）
           while ($true) {
               Write-Host "[$(Get-Date)] PC 已激活 - 在工作流程中使用 Ctrl+C 终止"
               Start-Sleep -Seconds 300
