@@ -81,7 +81,7 @@ jobs:
           }
           
           if (-not $tsIP) {
-              Write-Error "Tailscale IP not assigned. Exiting."
+              Write-Error "未分配 Tailscale IP。正在退出。"
               exit 1
           }
           echo "TAILSCALE_IP=$tsIP" >> $env:GITHUB_ENV
